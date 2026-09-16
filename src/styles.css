@@ -1,0 +1,129 @@
+:root {
+  font-family: Inter, ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #173f35;
+  background: #f4f1e8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 15% 10%, rgb(246 196 83 / 22%), transparent 32%),
+    #f4f1e8;
+}
+
+button { font: inherit; }
+
+.app-shell {
+  width: min(100%, 460px);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: max(3rem, env(safe-area-inset-top)) 1.25rem max(2rem, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro { margin-bottom: 2rem; }
+
+.eyebrow {
+  margin: 0 0 0.7rem;
+  color: #9b6b13;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 10vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.intro-copy { margin: 0.85rem 0 0; color: #597069; font-size: 1rem; }
+
+.timer-card {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1.5rem 1.5rem;
+  border: 1px solid rgb(23 63 53 / 12%);
+  border-radius: 2rem;
+  background: rgb(255 255 255 / 72%);
+  box-shadow: 0 24px 60px rgb(23 63 53 / 10%);
+  backdrop-filter: blur(12px);
+}
+
+.timer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  width: 4.5rem;
+  height: 0.35rem;
+  border-radius: 0 0 1rem 1rem;
+  background: #f6c453;
+}
+
+.timer-display { padding: 1.5rem 0 2rem; text-align: center; }
+.timer-label { display: block; color: #597069; font-size: 0.9rem; font-weight: 600; }
+
+.timer-time {
+  display: block;
+  margin-top: 0.5rem;
+  color: #173f35;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  font-size: clamp(4rem, 20vw, 5.75rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.08em;
+}
+
+.timer-controls { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; }
+
+.timer-controls button {
+  min-height: 3.5rem;
+  border-radius: 1rem;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.timer-controls button:active { transform: scale(0.97); }
+.timer-controls button:focus-visible { outline: 3px solid #f6c453; outline-offset: 3px; }
+.timer-controls svg { width: 1.15rem; height: 1.15rem; stroke-width: 2.5; }
+.primary-button { padding: 0 1.5rem; color: #fff; background: #173f35; }
+.primary-button:hover { background: #225c4d; }
+.reset-button { padding: 0 1.1rem; color: #173f35; background: #e6e8df; }
+.reset-button:hover { background: #dce0d4; }
+
+.tip {
+  max-width: 20rem;
+  margin: 1.5rem auto 0;
+  color: #74847f;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 360px) {
+  .app-shell { padding-inline: 1rem; }
+  .timer-card { padding-inline: 1rem; }
+  .timer-time { font-size: 3.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer-controls button { transition: none; }
+}
