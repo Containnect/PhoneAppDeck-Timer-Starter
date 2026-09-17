@@ -1,7 +1,7 @@
 :root {
-  font-family: Inter, "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #161616;
-  background: #f1f1ef;
+  font-family: 'DM Sans', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #18191b;
+  background: #f7f7f5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -16,25 +16,24 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
-  background: #f1f1ef;
+  background: #f7f7f5;
 }
 
 button { font: inherit; }
 
 .app-shell {
-  width: min(100%, 480px);
+  width: min(100%, 520px);
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0 auto;
-  padding: clamp(1rem, 5vw, 2rem);
-  display: flex;
-  align-items: center;
+  background: #fff;
 }
 
 .timer-card {
   width: 100%;
-  padding: clamp(1.75rem, 8vw, 3rem) clamp(1.5rem, 8vw, 3rem) clamp(1.5rem, 7vw, 2.5rem);
-  border-radius: clamp(2rem, 10vw, 3.5rem);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 25px 23px 32px;
   background: #fff;
 }
 
@@ -42,55 +41,70 @@ button { font: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1.6px;
 }
 
 .timer-kicker {
   margin: 0;
-  font-size: .9rem;
-  font-weight: 500;
-  letter-spacing: .08em;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
 }
 
 .more-button {
-  font-size: 1.15rem;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: 1.6px;
   line-height: 1;
 }
 
 .timer-heading {
-  margin: clamp(2rem, 9vw, 3.75rem) 0 0;
-  font-size: clamp(2.25rem, 11vw, 3.25rem);
-  line-height: 1.1;
-  letter-spacing: -.055em;
+  margin: 25px 0 3px;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .timer-display {
-  padding: clamp(3.25rem, 15vw, 5.25rem) 0 clamp(2.4rem, 11vw, 3.75rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 5px 25px;
   text-align: center;
 }
 
-.timer-label, .timer-unit {
+.timer-label {
   display: block;
-  color: #9b9b9b;
-  font-size: .86rem;
-  font-weight: 500;
-  letter-spacing: .14em;
+  color: #888;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.7px;
 }
 
 .timer-time {
   display: block;
-  margin: .45rem auto .5rem;
-  font-size: clamp(4.5rem, 23vw, 6.5rem);
+  margin: 0;
+  font-size: 64px;
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
-  line-height: 1;
-  letter-spacing: -.085em;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -4px;
 }
 
-.timer-unit { font-size: 1rem; letter-spacing: .08em; }
+.timer-unit {
+  display: block;
+  color: #aaa;
+  font-size: 13px;
+  letter-spacing: normal;
+}
 
-.timer-controls { display: flex; flex-direction: column; align-items: center; }
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .timer-controls button {
   border: 0;
@@ -98,63 +112,76 @@ button { font: inherit; }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 150ms ease, opacity 150ms ease;
 }
 
-.timer-controls button:active { transform: scale(.98); }
-.timer-controls button:focus-visible { outline: 3px solid #8d8d8d; outline-offset: 3px; }
+.timer-controls button:focus-visible {
+  outline: 3px solid #8d8d8d;
+  outline-offset: 3px;
+}
 
 .primary-button {
   width: 100%;
-  min-height: 4.65rem;
-  padding: 0 1.25rem;
-  gap: .7rem;
-  border-radius: 999px;
+  min-height: 54px;
+  padding: 0 20px;
+  gap: 9px;
+  border-radius: 50px;
   color: #fff;
-  background: #171717;
-  font-size: 1.08rem;
-  font-weight: 700;
-}
-
-.primary-button:hover { opacity: .88; }
-.primary-button svg { width: 1.25rem; height: 1.25rem; fill: currentColor; stroke-width: 2.5; }
-
-.reset-button {
-  min-height: 2.5rem;
-  margin-top: .65rem;
-  padding: 0 .8rem;
-  gap: .35rem;
-  border-radius: 99px;
-  color: #8a8a8a;
-  background: transparent;
-  font-size: .78rem;
+  background: #171819;
+  font-size: 14px;
   font-weight: 600;
 }
 
-.reset-button:hover { color: #222; background: #f4f4f4; }
-.reset-button svg { width: .85rem; height: .85rem; }
+.primary-button:active { transform: scale(.99); }
+.primary-button svg { width: 18px; height: 18px; fill: currentColor; }
 
-.session-history { margin-top: clamp(2.3rem, 11vw, 3.75rem); }
-.session-history h2 { margin: 0 0 .75rem; font-size: 1.15rem; }
-.session-history ul { margin: 0; padding: 0; list-style: none; }
+.reset-button {
+  min-height: 36px;
+  margin-top: 7px;
+  padding: 0 10px;
+  gap: 5px;
+  border-radius: 18px;
+  color: #888;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.reset-button:active { background: #f5f5f2; }
+.reset-button svg { width: 13px; height: 13px; }
+
+.session-history {
+  margin-top: 27px;
+}
+
+.session-history h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.session-history ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .session-history li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 16px;
   min-width: 0;
-  padding: 1rem 0;
-  border-bottom: 1px solid #ececec;
-  font-size: .92rem;
+  padding: 13px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 12px;
 }
+
 .session-history li span:first-child { overflow-wrap: anywhere; }
-.session-history li span:last-child { flex: 0 0 auto; color: #999; }
+.session-history li span:last-child { flex: 0 0 auto; color: #888; }
 
 @media (max-width: 360px) {
-  .app-shell { padding: .75rem; }
-  .timer-card { padding-inline: 1.25rem; border-radius: 2rem; }
-  .timer-time { font-size: clamp(4rem, 22vw, 5rem); }
-  .primary-button { min-height: 4.25rem; }
+  .timer-card { padding-inline: 18px; }
+  .timer-time { font-size: clamp(52px, 18vw, 64px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
