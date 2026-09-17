@@ -17,6 +17,7 @@ export function TimerDisplay({ seconds = 25 * 60, label = 'Focus session' }: Tim
       <time className="timer-time" dateTime={`PT${safeSeconds}S`}>
         {formattedTime}
       </time>
+      <span className="timer-unit">分</span>
     </div>
   )
 }
