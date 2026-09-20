@@ -3,6 +3,7 @@ import { Pause, Play, RotateCcw } from 'lucide-react'
 export type TimerControlsProps = {
   isRunning?: boolean
   hasStarted?: boolean
+  canStart?: boolean
   onStart?: () => void
   onPause?: () => void
   onReset?: () => void
@@ -11,6 +12,7 @@ export type TimerControlsProps = {
 export function TimerControls({
   isRunning = false,
   hasStarted = false,
+  canStart = true,
   onStart = () => undefined,
   onPause = () => undefined,
   onReset = () => undefined,
@@ -21,6 +23,7 @@ export function TimerControls({
         className="primary-button"
         type="button"
         onClick={isRunning ? onPause : onStart}
+        disabled={!isRunning && !canStart}
         aria-label={isRunning ? 'Pause timer' : 'Start timer'}
       >
         {isRunning ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
