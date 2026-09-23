@@ -93,6 +93,10 @@ export function Timer({ initialMinutes = 25, initialSeconds = 0 }: TimerProps) {
     }
   }
 
+  function addMinute() {
+    setSecondsLeft((current: number) => current + 60)
+  }
+
   return (
     <section className="timer-card" aria-label="学習タイマー">
       <header className="timer-header">
@@ -118,6 +122,7 @@ export function Timer({ initialMinutes = 25, initialSeconds = 0 }: TimerProps) {
         onStart={startTimer}
         onPause={() => setIsRunning(false)}
         onReset={resetTimer}
+        onAddMinute={addMinute}
       />
 
       <section className="session-history" aria-labelledby="history-title">
