@@ -7,6 +7,7 @@ export type TimerControlsProps = {
   onStart?: () => void
   onPause?: () => void
   onReset?: () => void
+  onAddMinute?: () => void
 }
 
 export function TimerControls({
@@ -16,6 +17,7 @@ export function TimerControls({
   onStart = () => undefined,
   onPause = () => undefined,
   onReset = () => undefined,
+  onAddMinute = () => undefined,
 }: TimerControlsProps) {
   return (
     <div className="timer-controls">
