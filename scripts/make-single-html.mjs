@@ -19,7 +19,7 @@ html = await replaceAllAsync(
   /<script\s+type=["']module["']\s+crossorigin\s+src=["']([^"']+)["']><\/script>/g,
   async (_match, src) => {
     const js = await readFile(resolve(distDir, src.replace(/^\//, '')), 'utf8');
-    return `<script>\n${js.replaceAll('</script', '<\\/script')}\n</script>`;
+    return `<script type="module">\n${js.replaceAll('</script', '<\\/script')}\n</script>`;
   },
 );
 
