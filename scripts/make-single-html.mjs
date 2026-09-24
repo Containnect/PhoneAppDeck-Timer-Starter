@@ -10,7 +10,7 @@ html = await replaceAllAsync(
   /<link\s+rel=["']stylesheet["']\s+crossorigin\s+href=["']([^"']+)["']\s*\/?\s*>/g,
   async (_match, href) => {
     const css = await readFile(resolve(distDir, href.replace(/^\//, '')), 'utf8');
-    return `<style>\n${css.replace(/<\\/style/gi, '<\\\\/style')}\n</style>`;
+    return `<style>\n${css.replaceAll('</style', '<\\/style')}\n</style>`;
   },
 );
 
@@ -19,7 +19,7 @@ html = await replaceAllAsync(
   /<script\s+type=["']module["']\s+crossorigin\s+src=["']([^"']+)["']><\/script>/g,
   async (_match, src) => {
     const js = await readFile(resolve(distDir, src.replace(/^\//, '')), 'utf8');
-    return `<script>\n${js.replace(/<\\/script/gi, '<\\\\/script')}\n</script>`;
+    return `<script>\n${js.replaceAll('</script', '<\\/script')}\n</script>`;
   },
 );
 
