@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:single": "npm run build && node scripts/make-single-html.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",
