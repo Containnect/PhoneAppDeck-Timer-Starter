@@ -19,18 +19,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Generate standalone HTML
+        run: node scripts/generate-standalone-demo.mjs
 
-      - name: Build single HTML
-        run: npm run build:single
-
-      - name: Prepare artifact
+      - name: Verify standalone artifact
         run: |
-          mkdir -p artifact
-          cp dist/index.html artifact/timer-starter.html
+          test -s artifact/timer-starter.html
+          grep -F "id=\"primary-button\"" artifact/timer-starter.html
+          grep -F "setInterval" artifact/timer-starter.html
+          if grep -Eq '<script[^>]+src=|<link[^>]+rel=["'\''"]stylesheet' artifact/timer-starter.html; then
+            echo "::error::Standalone artifact must not contain external JS or CSS."
+            exit 1
+          fi
 
       - name: Upload single HTML artifact
         uses: actions/upload-artifact@v4
