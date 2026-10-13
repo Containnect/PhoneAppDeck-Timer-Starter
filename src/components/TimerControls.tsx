@@ -1,6 +1,7 @@
 import { Pause, Play, RotateCcw } from 'lucide-react'
 
 export type TimerControlsProps = {
+  labels?: { start: string; resume: string; pause: string; reset: string }
   isRunning?: boolean
   hasStarted?: boolean
   canStart?: boolean
@@ -10,6 +11,7 @@ export type TimerControlsProps = {
 }
 
 export function TimerControls({
+  labels = { start: 'Start', resume: 'Resume', pause: 'Pause', reset: 'Reset' },
   isRunning = false,
   hasStarted = false,
   canStart = true,
@@ -27,11 +29,11 @@ export function TimerControls({
         aria-label={isRunning ? 'Pause timer' : 'Start timer'}
       >
         {isRunning ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
-        {isRunning ? '一時停止' : hasStarted ? '再開する' : '集中を始める'}
+        {isRunning ? labels.pause : hasStarted ? labels.resume : labels.start}
       </button>
       <button className="reset-button" type="button" onClick={onReset}>
         <RotateCcw aria-hidden="true" />
-        リセット
+        {labels.reset}
       </button>
     </div>
   )
