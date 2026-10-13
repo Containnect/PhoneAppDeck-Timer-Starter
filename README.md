@@ -25,3 +25,7 @@ The web build is written to `dist`.
 - `HomePage` arranges the components into the starter screen.
 
 Each component has small, typed props and useful defaults, so it can be opened and modified independently in Component Preview. In particular, `Timer.tsx` can render on its own without a router, provider, backend, or native runtime.
+
+## Language support
+
+The app detects the browser language on first load: Japanese for `ja*`, English otherwise. Use the **JA / EN** button in the timer header to switch manually; the choice is saved locally when storage is available. No backend or PAD app locale is required. The translations live in `src/i18n/language.ts`, and standalone component previews retain their defaults.

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { TimerControls } from './TimerControls'
 import { TimerDisplay } from './TimerDisplay'
+import { useTimerLanguage, timerStrings } from '../i18n/language'
 
 export type TimerProps = {
   /** Initial length of a focus session. */
@@ -18,19 +19,21 @@ const clamp = (value: number, maximum: number) =>
   Math.min(maximum, Math.max(0, Number.isFinite(value) ? Math.floor(value) : 0))
 
 const initialSessions: SessionItem[] = [
-  { id: 'design-research', title: 'デザイン調査', durationSeconds: 25 * 60 },
-  { id: 'reading', title: '読書', durationSeconds: 25 * 60 },
+  { id: 'design-research', title: 'design-research', durationSeconds: 25 * 60 },
+  { id: 'reading', title: 'reading', durationSeconds: 25 * 60 },
 ]
 
-function formatDuration(durationSeconds: number) {
+function formatDuration(durationSeconds: number, unit: { minutes: string; seconds: string }) {
   const minutes = Math.floor(durationSeconds / 60)
   const seconds = durationSeconds % 60
-  if (minutes === 0) return `${seconds}秒`
-  if (seconds === 0) return `${minutes}分`
-  return `${minutes}分${seconds}秒`
+  if (minutes === 0) return `${seconds}${unit.seconds}`
+  if (seconds === 0) return `${minutes}${unit.minutes}`
+  return `${minutes}${unit.minutes} ${seconds}${unit.seconds}`
 }
 
 export function Timer({ initialMinutes = 25, initialSeconds = 0 }: TimerProps) {
+  const [language, setLanguage] = useTimerLanguage()
+  const t = timerStrings[language]
   const [minutes, setMinutes] = useState(() => clamp(initialMinutes, 999))
   const [configuredSeconds, setConfiguredSeconds] = useState(() => clamp(initialSeconds, 59))
   const configuredTotalSeconds = minutes * 60 + configuredSeconds
@@ -94,24 +97,27 @@ export function Timer({ initialMinutes = 25, initialSeconds = 0 }: TimerProps) {
   }
 
   return (
-    <section className="timer-card" aria-label="学習タイマー">
+    <section className="timer-card" aria-label={t.timer}>
       <header className="timer-header">
-        <p className="timer-kicker">学習タイマー</p>
+        <p className="timer-kicker">{t.timer}</p>
+        <button type="button" onClick={() => setLanguage(language === "ja" ? "en" : "ja")} aria-label={t.switchLanguage} aria-pressed={language === "en"} style={{ marginLeft: "auto", padding: "0.25rem 0.6rem", borderRadius: "0.5rem", cursor: "pointer" }}>{language === "ja" ? "EN" : "JA"}</button>
         <span className="more-button" aria-hidden="true">•••</span>
       </header>
 
-      <h1 className="timer-heading">集中しよう</h1>
+      <h1 className="timer-heading">{t.heading}</h1>
 
       <TimerDisplay
         seconds={secondsLeft}
         minutes={minutes}
         configuredSeconds={configuredSeconds}
         isEditable={!hasStarted}
-        label={secondsLeft === 0 && hasStarted ? '完了しました' : '集中タイム'}
+        label={secondsLeft === 0 && hasStarted ? t.completed : t.focusTime}
+        language={language}
         onMinutesChange={changeMinutes}
         onSecondsChange={changeSeconds}
       />
       <TimerControls
+        labels={{ start: t.start, resume: t.resume, pause: t.pause, reset: t.reset }}
         isRunning={isRunning}
         hasStarted={hasStarted}
         canStart={secondsLeft > 0}
@@ -122,34 +128,34 @@ export function Timer({ initialMinutes = 25, initialSeconds = 0 }: TimerProps) {
 
       <section className="session-history" aria-labelledby="history-title">
         <div className="history-header">
-          <h2 id="history-title">今日</h2>
+          <h2 id="history-title">{t.today}</h2>
           <button type="button" className="add-session-button" onClick={() => setIsAddingSession(true)}>
             ＋ 追加
           </button>
         </div>
         {isAddingSession && (
           <form className="add-session-form" onSubmit={(event) => { event.preventDefault(); addSession() }}>
-            <label className="sr-only" htmlFor="session-title">新しい項目名</label>
+            <label className="sr-only" htmlFor="session-title">{t.newItem}</label>
             <input
               id="session-title"
               autoFocus
               value={newSessionTitle}
               onChange={(event) => setNewSessionTitle(event.target.value)}
-              placeholder="項目名を入力"
+              placeholder={t.itemPlaceholder}
             />
-            <button type="submit" disabled={!newSessionTitle.trim()}>追加</button>
+            <button type="submit" disabled={!newSessionTitle.trim()}>{t.add}</button>
           </form>
         )}
         <ul>
           {sessions.map((session) => (
             <li key={session.id}>
-              <span>{session.title}</span>
-              <span className="session-duration">{formatDuration(session.durationSeconds)}</span>
+              <span>{t.sampleSessions[session.title as keyof typeof t.sampleSessions] ?? session.title}</span>
+              <span className="session-duration">{formatDuration(session.durationSeconds, t.units)}</span>
               <button
                 type="button"
                 className="delete-session-button"
                 onClick={() => setSessions((current) => current.filter((item) => item.id !== session.id))}
-                aria-label={`${session.title}を削除`}
+                aria-label={`${t.deleteItem}: ${t.sampleSessions[session.title as keyof typeof t.sampleSessions] ?? session.title}`}
               >×</button>
             </li>
           ))}
