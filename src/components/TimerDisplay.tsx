@@ -1,5 +1,6 @@
 export type TimerDisplayProps = {
   /** Remaining time in seconds. */
+  language?: 'ja' | 'en'
   seconds?: number
   /** Configured duration, shown in the editable inputs before a session starts. */
   minutes?: number
@@ -12,6 +13,7 @@ export type TimerDisplayProps = {
 }
 
 export function TimerDisplay({
+  language = 'en',
   seconds = 25 * 60,
   minutes = 25,
   configuredSeconds = 0,
@@ -28,7 +30,7 @@ export function TimerDisplay({
     <div className="timer-display">
       <span className="timer-label">{label}</span>
       {isEditable ? (
-        <div className="timer-inputs" aria-label="タイマー時間の設定">
+        <div className="timer-inputs" aria-label={language === "ja" ? "タイマー時間の設定" : "Set timer duration"}>
           <label>
             <input
               type="number"
@@ -37,9 +39,9 @@ export function TimerDisplay({
               inputMode="numeric"
               value={minutes}
               onChange={(event) => onMinutesChange(Number(event.target.value))}
-              aria-label="分"
+              aria-label={language === "ja" ? "分" : "Minutes"}
             />
-            <span>分</span>
+            <span>{language === "ja" ? "分" : "min"}</span>
           </label>
           <span className="timer-separator" aria-hidden="true">:</span>
           <label>
@@ -50,9 +52,9 @@ export function TimerDisplay({
               inputMode="numeric"
               value={String(configuredSeconds).padStart(2, '0')}
               onChange={(event) => onSecondsChange(Number(event.target.value))}
-              aria-label="秒"
+              aria-label={language === "ja" ? "秒" : "Seconds"}
             />
-            <span>秒</span>
+            <span>{language === "ja" ? "秒" : "sec"}</span>
           </label>
         </div>
       ) : (
